@@ -1,45 +1,30 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
-
+import React from "react";
+import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Route, Router, Navigate, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import NavBar from "./components/NavBar";
+import { useState } from "react";
+import Login from './pages/Login'
+import Error from "./pages/Error";
+import Register from "./pages/Register";
+const App = () => {
+  const user = localStorage.getItem('token');
+  const [searchedCoin, setSearchedCoin] = useState('')
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
-  )
-}
+    <>
+    <NavBar setSearchedCoin={setSearchedCoin}/>
+    <Routes>
+    {user  && <Route path="/" element={<Home/>}/>}
+    <Route path="/" element={<Navigate replace to='/login'/>}/>
+    <Route path="/login" element={<Login/>}/>
+    <Route path="/register" element={<Register/>}/>
+    <Route path="*" element={<Error/>}/>
 
-export default App
+    </Routes>
+    </>
+
+  );
+};
+
+export default App;
