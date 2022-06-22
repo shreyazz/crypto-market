@@ -8,17 +8,16 @@ const bcrypt = require("bcryptjs");
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
-    // if (!email, !password) {
-    //   return res
-    //     .status(422)
-    //     .json({ message: "Please fill all the details 🔴" });
-    // }
+    if (!email || !password) {
+      return res
+        .status(422)
+        .json({ message: "Please fill all the details 🔴" });
+    }
     const findUser = await userSchema.findOne({ email });
     if (!findUser) {
-      return res.status(404).json({ message: "User is not registered 🔴" });
+      return res.status(401).json({ message: "User is not registered! 🔴" });
     }
     const passwordMatching = await bcrypt.compare(password, findUser.password);
-console.log(passwordMatching)
     if (!passwordMatching) {
       res
         .status(401)
