@@ -52,7 +52,6 @@ const Login = () => {
           Submit
         </Button>
       </Form>
-      {loginDetails.email} {loginDetails.password}
     </Container>
   );
 };

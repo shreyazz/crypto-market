@@ -17,15 +17,15 @@ const NavBar = ({ setSearchedCoin }) => {
   const navigate = useNavigate();
   const [userVerified, setUserVerified] = useState(false);
   const verifyUser = () => {
-    const user = localStorage.getItem("token");
-    if(user){
-      if(user.isVerified){
+    const token = localStorage.getItem("token");
+    if(token){
+      if(jwt_decode(token).isVerified){
         setUserVerified(true)
       }else{
         setUserVerified(false);
       }
     }
-    user && user.isVerified ? setUserVerified(true) : setUserVerified(false);
+    
   };
   // useEffect(() => {verifyUser()}, [])
   const [pathName, setPathName] = useState("");
@@ -42,7 +42,6 @@ const NavBar = ({ setSearchedCoin }) => {
 
   return (
     <Navbar bg="light" expand="lg">
-     <p>user veri {userVerified.toString()}</p>
       <Container fluid>
         <Navbar.Brand href="#">Crypto Market</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
