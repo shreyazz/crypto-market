@@ -21,8 +21,11 @@ const NavBar = ({ setSearchedCoin }) => {
     if(token){
       if(jwt_decode(token).isVerified){
         setUserVerified(true)
+        console.log('set user ver', userVerified)
       }else{
         setUserVerified(false);
+        console.log('set user ver else', userVerified)
+
       }
     }
     
@@ -37,6 +40,7 @@ const NavBar = ({ setSearchedCoin }) => {
   };
   const logout = () => {
     localStorage.removeItem("token");
+    window.location.reload();
     navigate("/", { replace: true });
   };
 
